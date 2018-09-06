@@ -94,4 +94,123 @@ function getUrlParam(name) {
     }
     return null;
 }
-
+/**
+ * @Description: 设置cookie
+ * @author lan
+ * @date 2018/9/6
+ * @params {key:名字,value:值,expires:时间}
+*/
+function setCookie(key,value,expires){
+    var date = new Date()
+    date.setDate(date.getDate()+expires)
+    document.cookie = key + '=' + value + ';expires=' + date;
+    console.log(document.cookie);
+}
+/**
+ * @Description: 获取cookie
+ * @author lan
+ * @date 2018/9/6
+ * @params {key:获取的key}
+*/
+function getCookie(key){
+    var str = document.cookie.split('; ')
+    for (var i=0;i<str.length;i++){
+        var arr = str[i].split('=')
+        if (arr[0] === key){
+            return arr[1]
+        }
+    }
+    return ''
+}
+/**
+ * @Description: 删除cookie
+ * @author lan
+ * @date 2018/9/6
+ * @params {key:删除的key}
+*/
+function deleteCookie(key){
+    document.cookie = key + '=' + '' + ';expires='+ -1;
+}
+/**
+ * @Description: 存储localStorage
+ * @author lan
+ * @date 2018/9/6
+ * @params {key:存储的key,value:存储的value}
+*/
+function setItem(key,value) {
+    if (window.localStorage){
+        localStorage.setItem(key,JSON.stringify(value))
+    }
+}
+/**
+ * @Description: 获取localStorage
+ * @author lan
+ * @date 2018/9/6
+ * @params {key:获取的key}
+*/
+function getItem(key){
+    if (window.localStorage){
+        return JSON.parse(localStorage.getItem(key || []))
+    }
+    return ''
+}
+/**
+ * @Description: 删除localStorage
+ * @author lan
+ * @date 2018/9/6
+ * @params {key:删除的key}
+*/
+function deleteItem(key){
+    if (window.localStorage){
+        localStorage.removeItem(key)
+    }
+}
+/**
+ * @Description: 格式化时间戳
+ * @author lan
+ * @date 2018/9/6
+ * @params {date:时间戳}
+*/
+function timestamp(date){
+    var d = new Date()
+    d.setTime(date)
+    var Y = d.getFullYear()
+    var M = d.getMonth()+1
+    var D = d.getDate()
+    var h = d.getHours()
+    var m = d.getMinutes()
+    var s = d.getSeconds()
+    return Y + '年' + M + '月' + D + '日'
+}
+/**
+ * @Description: 封装ajax
+ * @author lan
+ * @date 2018/9/6
+ * @params {get-->params:url地址,callback回调}
+ * @params {post-->url:url地址,data参数}
+*/
+var ajax = {
+    get: function (params) {
+        var url = params.url
+        var callback = params.success
+        if (window.XMLHttpRequest) {
+            var oAjax = new XMLHttpRequest()
+        } else {
+            var oAjax = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        oAjax.open('get', url, true)
+        oAjax.send()
+        oAjax.onreadystatechange = function () {
+            if (oAjax.readyState == 4 && (oAjax.status == 200 || oAjax.status == 304)) {
+                callback(JSON.parse(oAjax.responseText))
+            }
+        }
+    },
+    post: function (url,data) {
+        if (window.XMLHttpRequest) {
+            var oAjax = new XMLHttpRequest()
+        } else {
+            var oAjax = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    }
+}
