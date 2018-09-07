@@ -214,3 +214,20 @@ var ajax = {
         }
     }
 }
+/**
+ * @Description: 获取当前日期
+ * @author lan
+ * @date 2018/9/7
+ * @params {}
+*/
+function date(){
+    var d = new Date()
+    var Y = d.getFullYear()
+    var M = d.getMonth()+1
+    var D = d.getDate()
+    var h = d.getHours()
+    var m = d.getMinutes()
+    var s = d.getSeconds()
+    return Y+'-'+M+'-'+D
+}
+
