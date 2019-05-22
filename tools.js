@@ -183,38 +183,6 @@ function timestamp(date){
     return Y + '年' + M + '月' + D + '日'
 }
 /**
- * @Description: 封装ajax
- * @author lan
- * @date 2018/9/6
- * @params {get-->params:url地址,callback回调}
- * @params {post-->url:url地址,data参数}
-*/
-var ajax = {
-    get: function (params) {
-        var url = params.url
-        var callback = params.success
-        if (window.XMLHttpRequest) {
-            var oAjax = new XMLHttpRequest()
-        } else {
-            var oAjax = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        oAjax.open('get', url, true)
-        oAjax.send()
-        oAjax.onreadystatechange = function () {
-            if (oAjax.readyState == 4 && (oAjax.status == 200 || oAjax.status == 304)) {
-                callback(JSON.parse(oAjax.responseText))
-            }
-        }
-    },
-    post: function (url,data) {
-        if (window.XMLHttpRequest) {
-            var oAjax = new XMLHttpRequest()
-        } else {
-            var oAjax = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-    }
-}
-/**
  * @Description: 获取当前日期
  * @author lan
  * @date 2018/9/7
@@ -230,4 +198,5 @@ function date(){
     var s = d.getSeconds()
     return Y+'-'+M+'-'+D
 }
+
 
